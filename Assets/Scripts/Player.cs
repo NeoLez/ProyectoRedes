@@ -12,6 +12,7 @@ public class Player : NetworkBehaviour, IExplodable
     private NetworkRigidbody3D _rb;
     [SerializeField] private float speed;
     [SerializeField] private TsarBomba bombPrefab;
+    [SerializeField] private float bombCooldown;
 
     [Networked] public int PlayerID { get; private set; }
 
@@ -31,18 +32,22 @@ public class Player : NetworkBehaviour, IExplodable
         _rb = GetComponent<NetworkRigidbody3D>();
     }
 
+    private float lastBombDrop;
     private void DropBomb(InputAction.CallbackContext _)
     {
-        Runner.Spawn(bombPrefab, transform.position, Quaternion.identity);
+        if (lastBombDrop + bombCooldown <= Time.time) {
+            lastBombDrop = Time.time;
+            Runner.Spawn(bombPrefab, transform.position, Quaternion.identity);
+        }
     }
     
     private Vector2 moveDirection = Vector2.zero;
     private void Update() {
-        if (powerupEndTime <= Time.time) powerupSpeedPercentage = 0;
         if (!Object.HasStateAuthority)
         {
             return;
         }
+        if (powerupEndTime <= Time.time) powerupSpeedPercentage = 0;
         moveDirection = GameManager.input.Player.MoveDir.ReadValue<Vector2>();
     }
 

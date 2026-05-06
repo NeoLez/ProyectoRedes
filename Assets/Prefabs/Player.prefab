@@ -189,9 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   bombPrefab: {fileID: 309517026317412964, guid: 0df4a049a44f5fd41a1fa3f68823412c, type: 3}
-  powerupLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  bombCooldown: 2.5
   _PlayerID: 0
 --- !u!54 &1863643199685746176
 Rigidbody:
