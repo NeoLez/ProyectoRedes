@@ -1,4 +1,6 @@
-﻿using Fusion;
+﻿using System;
+using DefaultNamespace;
+using Fusion;
 using Fusion.Addons.Physics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,6 +14,9 @@ public class Player : NetworkBehaviour, IExplodable
     [SerializeField] private TsarBomba bombPrefab;
 
     [Networked] public int PlayerID { get; private set; }
+
+    private float powerupEndTime;
+    private float powerupSpeedPercentage;
     
     public override void Spawned()
     {
@@ -32,8 +37,8 @@ public class Player : NetworkBehaviour, IExplodable
     }
     
     private Vector2 moveDirection = Vector2.zero;
-    private void Update()
-    {
+    private void Update() {
+        if (powerupEndTime <= Time.time) powerupSpeedPercentage = 0;
         if (!Object.HasStateAuthority)
         {
             return;
@@ -47,7 +52,7 @@ public class Player : NetworkBehaviour, IExplodable
         {
             return;
         }
-        _rb.Rigidbody.linearVelocity = moveDirection.Swizzle_x0y() * speed;
+        _rb.Rigidbody.linearVelocity = moveDirection.Swizzle_x0y() * speed * (1 + powerupSpeedPercentage);
     }
 
     [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
@@ -60,6 +65,12 @@ public class Player : NetworkBehaviour, IExplodable
     public Vector2Int GetTilePosition()
     {
         return GameManager.gridMap.GetTilePosition(transform.position);
+    }
+
+    [Rpc(RpcSources.All, RpcTargets.StateAuthority)]
+    public void RpcGivePowerup(float powerupTime, float powerupSpeedPercentage) {
+        this.powerupSpeedPercentage = powerupSpeedPercentage;
+        powerupEndTime = Time.time + powerupTime;
     }
 
     public void Explode() {
