@@ -31,7 +31,7 @@ public class TsarBomba : NetworkBehaviour
     }
 
     public override void FixedUpdateNetwork() {
-        animator.Animator.SetFloat("Time", Mathf.Min(_explosionTime - Time.time / fuseTime, 1.0f));
+        animator.Animator.SetFloat("Time", Mathf.Min((_explosionTime - Time.time) / fuseTime, 1.0f));
         if (!_exploded) {
             if (_explosionTimer.Expired(Runner)) {
                 animator.Animator.SetBool("Exploded", true);
