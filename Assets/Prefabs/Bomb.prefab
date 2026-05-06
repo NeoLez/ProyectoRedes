@@ -54,6 +54,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 309517026317412964}
   - {fileID: 1887285389474865600}
+  - {fileID: 415429300103340992}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &309517026317412964
 MonoBehaviour:
@@ -68,12 +69,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuseTime: 3
-  despawnTimer: 10
   explosionPropagationDelay: 0.2
-  playerLayer:
+  hitLayer:
     serializedVersion: 2
     m_Bits: 8
   tileExplosionVisualsPrefab: {fileID: 8348807364829522966, guid: 9b2a9562190ff82479ed69a5ad54ff36, type: 3}
+  animator: {fileID: 415429300103340992}
 --- !u!114 &1887285389474865600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,6 +135,8 @@ GameObject:
   - component: {fileID: 4126656608020633515}
   - component: {fileID: 7858537333611088142}
   - component: {fileID: 1148832528585526403}
+  - component: {fileID: 6798733152899701122}
+  - component: {fileID: 415429300103340992}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -209,3 +212,43 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &6798733152899701122
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8198367384405216418}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 01ee525b4ec5d859b9ba225279b683ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &415429300103340992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8198367384405216418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 506319458, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 6798733152899701122}
+  ApplyTiming: 2
+  SyncSettings: 79
+  StateHashes: 00000000b88c9b2f7afe5a8dba8c869738c3ca12de83dfefc412e505
+  TriggerHashes: 00000000
+  TotalWords: 2

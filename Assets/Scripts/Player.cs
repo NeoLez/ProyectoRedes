@@ -3,8 +3,9 @@ using Fusion.Addons.Physics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
+using Behaviour = Fusion.Behaviour;
 
-public class Player : NetworkBehaviour
+public class Player : NetworkBehaviour, IExplodable
 {
     private NetworkRigidbody3D _rb;
     [SerializeField] private float speed;
@@ -59,5 +60,13 @@ public class Player : NetworkBehaviour
     public Vector2Int GetTilePosition()
     {
         return GameManager.gridMap.GetTilePosition(transform.position);
+    }
+
+    public void Explode() {
+        RpcKill();
+    }
+
+    public Behaviour Behaviour() {
+        return this;
     }
 }

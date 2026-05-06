@@ -433,6 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 667865492}
   - component: {fileID: 667865493}
+  - component: {fileID: 667865494}
   m_Layer: 0
   m_Name: MapGrid
   m_TagString: Untagged
@@ -486,55 +487,13 @@ MonoBehaviour:
     state: 1
   - position: {x: -1, y: 7}
     state: 1
-  - position: {x: 3, y: 6}
-    state: 1
   - position: {x: 1, y: 7}
     state: 1
   - position: {x: 2, y: 7}
     state: 1
   - position: {x: 3, y: 7}
     state: 1
-  - position: {x: 3, y: 5}
-    state: 1
-  - position: {x: 3, y: 4}
-    state: 1
-  - position: {x: 3, y: 3}
-    state: 1
-  - position: {x: 3, y: 2}
-    state: 1
-  - position: {x: 3, y: 1}
-    state: 1
-  - position: {x: 3, y: 0}
-    state: 1
-  - position: {x: 3, y: -1}
-    state: 1
-  - position: {x: 3, y: -2}
-    state: 1
-  - position: {x: 3, y: -3}
-    state: 1
-  - position: {x: 3, y: -4}
-    state: 1
-  - position: {x: 2, y: -4}
-    state: 1
-  - position: {x: 0, y: -4}
-    state: 1
-  - position: {x: -1, y: -4}
-    state: 1
-  - position: {x: 1, y: -4}
-    state: 1
-  - position: {x: -2, y: -4}
-    state: 1
-  - position: {x: -4, y: -4}
-    state: 1
-  - position: {x: -5, y: -4}
-    state: 1
-  - position: {x: -3, y: -4}
-    state: 1
-  - position: {x: -6, y: -4}
-    state: 1
   - position: {x: -8, y: -4}
-    state: 1
-  - position: {x: -7, y: -4}
     state: 1
   - position: {x: -8, y: -3}
     state: 1
@@ -566,7 +525,125 @@ MonoBehaviour:
     state: 1
   - position: {x: -3, y: -1}
     state: 1
+  - position: {x: 4, y: 7}
+    state: 1
+  - position: {x: 5, y: 7}
+    state: 1
+  - position: {x: 6, y: 7}
+    state: 1
+  - position: {x: 7, y: 7}
+    state: 1
+  - position: {x: -8, y: -5}
+    state: 1
+  - position: {x: -8, y: -6}
+    state: 1
+  - position: {x: -8, y: -7}
+    state: 1
+  - position: {x: -8, y: -8}
+    state: 1
+  - position: {x: -8, y: -9}
+    state: 1
+  - position: {x: -7, y: -9}
+    state: 1
+  - position: {x: -5, y: -9}
+    state: 1
+  - position: {x: -4, y: -9}
+    state: 1
+  - position: {x: -6, y: -9}
+    state: 1
+  - position: {x: -3, y: -9}
+    state: 1
+  - position: {x: -1, y: -9}
+    state: 1
+  - position: {x: -2, y: -9}
+    state: 1
+  - position: {x: 0, y: -9}
+    state: 1
+  - position: {x: 3, y: -9}
+    state: 1
+  - position: {x: 1, y: -9}
+    state: 1
+  - position: {x: 2, y: -9}
+    state: 1
+  - position: {x: 5, y: -9}
+    state: 1
+  - position: {x: 4, y: -9}
+    state: 1
+  - position: {x: 6, y: -9}
+    state: 1
+  - position: {x: 7, y: 6}
+    state: 1
+  - position: {x: 7, y: 5}
+    state: 1
+  - position: {x: 7, y: 4}
+    state: 1
+  - position: {x: 7, y: 3}
+    state: 1
+  - position: {x: 7, y: 2}
+    state: 1
+  - position: {x: 7, y: 1}
+    state: 1
+  - position: {x: 7, y: 0}
+    state: 1
+  - position: {x: 7, y: -1}
+    state: 1
+  - position: {x: 7, y: -2}
+    state: 1
+  - position: {x: 7, y: -3}
+    state: 1
+  - position: {x: 7, y: -4}
+    state: 1
+  - position: {x: 7, y: -5}
+    state: 1
+  - position: {x: 7, y: -6}
+    state: 1
+  - position: {x: 7, y: -7}
+    state: 1
+  - position: {x: 7, y: -8}
+    state: 1
+  - position: {x: 7, y: -9}
+    state: 1
+  - position: {x: 0, y: -7}
+    state: 2
+  - position: {x: 1, y: -7}
+    state: 2
+  - position: {x: 2, y: -7}
+    state: 2
+  - position: {x: 4, y: -7}
+    state: 2
+  - position: {x: 3, y: -7}
+    state: 2
+  - position: {x: 4, y: -6}
+    state: 1
+  - position: {x: 4, y: -5}
+    state: 1
+  - position: {x: 4, y: -4}
+    state: 2
+  - position: {x: 4, y: -3}
+    state: 2
+  - position: {x: 4, y: -2}
+    state: 1
   occupiedPrefab: {fileID: 5198422714299536733, guid: 36f55d67de2880e428f07ce7b418d474, type: 3}
+  breakablePrefab: {fileID: 94970634156462834, guid: 0ada7038636a120fda0a9b5269f511b7, type: 3}
+--- !u!114 &667865494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667865491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 821038973
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 667865493}
+  ForceRemoteRenderTimeframe: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,8 +1088,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1036,13 +1113,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5245729, y: 0, z: 0, w: 0.8513655}
-  m_LocalPosition: {x: 0.6, y: 13.9, z: -7.6}
+  m_LocalRotation: {x: 0.5482932, y: 0, z: 0, w: 0.83628625}
+  m_LocalPosition: {x: 0, y: 6.5, z: -3.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 63.279, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 66.5, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0

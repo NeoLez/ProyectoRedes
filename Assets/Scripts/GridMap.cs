@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 
-public class GridMap : MonoBehaviour
+public class GridMap : NetworkBehaviour
 {
     [Serializable]
     public class PosState
@@ -12,13 +13,13 @@ public class GridMap : MonoBehaviour
     } 
     [SerializeField] public List<PosState> _posStates = new() ;
     [SerializeField] GameObject occupiedPrefab;
+    [SerializeField] BreakableObstacle breakablePrefab;
         
     private Dictionary<Vector2Int, TileState> TileStates = new();
 
-    private void Awake()
-    {
-        PopulateMapDictionary();
+    public override void Spawned() {
         GameManager.gridMap = this;
+        PopulateMapDictionary();
     }
 
     private void PopulateMapDictionary()
@@ -28,7 +29,12 @@ public class GridMap : MonoBehaviour
             if (posState.state == TileState.Free) continue;
                 
             TileStates[posState.position] = posState.state;
-            Instantiate(occupiedPrefab, new Vector3(posState.position.x, 0, posState.position.y), Quaternion.identity, transform);
+            if(posState.state == TileState.Occupied)
+                Instantiate(occupiedPrefab, new Vector3(posState.position.x, 0, posState.position.y), Quaternion.identity, transform);
+            else if (HasStateAuthority) {
+                var o = Runner.Spawn(breakablePrefab, new Vector3(posState.position.x, 0, posState.position.y), Quaternion.identity);
+                o.transform.SetParent(transform);
+            }
         }
     }
 
@@ -47,17 +53,15 @@ public class GridMap : MonoBehaviour
         return new Vector2Int((int)Math.Round(pos.x), (int)Math.Round(pos.z));
     }
 
-    public void ToggleTile(Vector2Int pos)
-    {
-        if (TileStates.ContainsKey(pos))
-        {
-            TileStates.Remove(pos);
-            _posStates.RemoveAll(p => p.position == pos);
-        }
-        else
-        {
-            TileStates[pos] = TileState.Occupied;
+    public void ToggleTileEditor(Vector2Int pos) {
+        var posState = _posStates.Find(p => p.position == pos);
+        if (posState == null) {
             _posStates.Add(new PosState { position = pos, state = TileState.Occupied });
+        } else if (posState.state == TileState.Occupied) {
+            posState.state = TileState.Breakable;
+        }
+        else {
+            _posStates.RemoveAll(p => p.position == pos);
         }
     }
 }
@@ -66,4 +70,5 @@ public enum TileState
 { 
     Free,
     Occupied,
+    Breakable,
 }

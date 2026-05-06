@@ -7,10 +7,12 @@ public class TsarBomba : NetworkBehaviour
 {
     [SerializeField] private float fuseTime;
     [SerializeField] private float explosionPropagationDelay;
-    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private LayerMask hitLayer;
     [SerializeField] private TileExplosionVisuals tileExplosionVisualsPrefab;
+    [SerializeField] private NetworkMecanimAnimator animator;   
     private bool _exploded;
     private TickTimer _explosionTimer;
+    private float _explosionTime;
     
     private struct PendingExplosion
     {
@@ -19,17 +21,20 @@ public class TsarBomba : NetworkBehaviour
     }
 
     private List<PendingExplosion> _pendingExplosions = new();
-    private HashSet<int> _playersHit = new();
+    private HashSet<int> _objectsHit = new();
 
     public override void Spawned() {
         if (HasStateAuthority) {
             _explosionTimer = TickTimer.CreateFromSeconds(Runner, fuseTime);
+            _explosionTime = Time.time + fuseTime;
         }
     }
 
     public override void FixedUpdateNetwork() {
+        animator.Animator.SetFloat("Time", Mathf.Min(_explosionTime - Time.time / fuseTime, 1.0f));
         if (!_exploded) {
             if (_explosionTimer.Expired(Runner)) {
+                animator.Animator.SetBool("Exploded", true);
                 _exploded = true;
                 Explode(); 
                 RpcExplodeVisuals();
@@ -46,12 +51,13 @@ public class TsarBomba : NetworkBehaviour
             if (pendingExplosion.timer.ExpiredOrNotRunning(Runner)) {
                 _pendingExplosions.RemoveAt(i);
                 RpcExplodeTile(pendingExplosion.position);
-                var colliders = Physics.OverlapBox(pendingExplosion.position.ToVector2().Swizzle_x0y(), new Vector3(1, 1, 1), Quaternion.identity, playerLayer);
+                var colliders = Physics.OverlapBox(pendingExplosion.position.ToVector2().Swizzle_x0y(), new Vector3(0.45f, 0.45f, 0.45f), Quaternion.identity, hitLayer);
                 foreach (var collider in colliders) {
-                    var player = collider.GetComponent<Player>();
-                    if (_playersHit.Contains(player.PlayerID)) continue;
-                    _playersHit.Add(player.PlayerID);
-                    player.RpcKill();
+                    var obj = collider.GetComponent<IExplodable>();
+                    
+                    if (_objectsHit.Contains(obj.Behaviour().GetInstanceID())) continue;
+                    _objectsHit.Add(obj.Behaviour().GetInstanceID());
+                    obj.Explode();
                 }
             } 
             RpcSpawnTileVisuals(pendingExplosion.position);
@@ -100,6 +106,9 @@ public class TsarBomba : NetworkBehaviour
                     position = currentPosition,
                     timer = TickTimer.CreateFromSeconds(Runner, explosionPropagationDelay * i)
                 });
+
+                if (map.GetTileState(currentPosition) == TileState.Breakable)
+                    break;
 
                 i++;
             }

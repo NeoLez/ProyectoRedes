@@ -30,7 +30,7 @@ public class GridMapEditor : Editor
                 Undo.RecordObject(grid, "Toggle Tile");
 
                 Debug.Log(tilePos);
-                grid.ToggleTile(tilePos);
+                grid.ToggleTileEditor(tilePos);
 
                 EditorUtility.SetDirty(grid);
 
@@ -41,11 +41,13 @@ public class GridMapEditor : Editor
 
     private void DrawGrid()
     {
-        Handles.color = Color.red;
         
         foreach (var p in grid._posStates)
         {
             if (p.state == TileState.Free) continue;
+            if (p.state == TileState.Breakable) Handles.color = Color.green;
+            else Handles.color = Color.red;
+            
             Vector3 pos = new Vector3(p.position.x, 0, p.position.y);
             Handles.DrawWireCube(pos, Vector3.one);
         }
